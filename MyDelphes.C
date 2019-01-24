@@ -42,6 +42,8 @@ void MyDelphes::Loop(TString file_name)
     // nentries is the number of events
     
     float weight =0;
+    float sum_weights =  0.0605026;
+    float Sig_MG5 = 0.05148;
     
    Long64_t nentries = fChain->GetEntriesFast();
     
@@ -68,13 +70,16 @@ void MyDelphes::Loop(TString file_name)
     TH1 *mt = new TH1F ("mt", "mt", 100, 0, 2000); mt->Sumw2 ();//3
     TH1 *mH = new TH1F ("mH", "mH", 100, 0, 2000); mH->Sumw2 ();//6
     TH1 *mt4 = new TH1F ("mt4", "mt4", 100, 0, 2000); mt4->Sumw2 ();//9
+    TH1 *muPT = new TH1F ("muPT", "muPT", 100, 10, 1000); muPT->Sumw2 ();
+    TH1 *HT = new TH1F ("HT", "HT", 100, 10, 8000); HT->Sumw2 ();
+    TH1 *nfjets = new TH1F ("nfjets", "nfjets", 10, 0, 10);
     //   TH1 *deltar = new TH1F ("deltar", "DeltaR", 100, 0, 1); deltar->Sumw2 ();
     //   TH1 *mass4 = new TH1F ("mass4", "mass4", 100, 0, 200); mass4->Sumw2 ();
     //   TH1 *mass3 = new TH1F ("mass3", "mass3", 100, 0, 200); mass3->Sumw2 ();
     
 
    Long64_t nbytes = 0, nb = 0;
-    
+    int Nevents_pass = 0;
 // Loops over events
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -82,7 +87,7 @@ void MyDelphes::Loop(TString file_name)
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       // if (Cut(ientry) < 0) continue;
        
-       weight += Event_Weight[0];
+       //weight += Event_Weight[0]*Sig_MG5/sum_weights;
        
        //////////////////////
        // Here begins my code
@@ -91,9 +96,97 @@ void MyDelphes::Loop(TString file_name)
        int *njets =  &Jet_size;
        int njetsvalue ;
        njetsvalue=*njets;
-       //  cout << njetsvalue << endl;
+         //cout << njetsvalue << endl;
+       
+       int *nmuons = &Muon_size;
+       int nmuonsvalue;
+       nmuonsvalue = *nmuons;
+       
+       int *nelecs = &Electron_size;
+       int nelecsvalue;
+       nelecsvalue = *nelecs;
+       
+       int *nfj = &FatJet_size;
+       int nfj_value;
+       
+       nfj_value = *nfj;
+       
+       //cout<< nmuonsvalue << endl;
        
        
+       
+       //Selecting events with a single muon
+       
+       if(nmuonsvalue == 1 && nelecsvalue == 0)
+       {
+           
+           //PT and eta cuts from hep-ex 1602.09024
+           if(Muon_PT[0] > 25. && abs(Muon_Eta[0]) < 2.1 && ScalarHT_HT[0]>2000.)
+           {
+               
+               //cout<<"Muon PT: "<< Muon_PT[0] << endl;
+               Nevents_pass += 1;
+               muPT->Fill (Muon_PT[0], Event_Weight[0]);
+                   //weight += Event_Weight[0];
+                   
+                   weight += Event_Weight[0]*Sig_MG5/sum_weights;
+               
+               
+           }    
+       }
+       
+       else{
+           
+           //cout<< "Too many Muons " << nmuonsvalue <<endl;
+       }
+       
+       
+       // Selecting events with single electron
+       
+       if(nelecsvalue == 1 && nmuonsvalue == 0)
+       {
+           //PT and eta cuts from hep-ex 1602.09024
+           if(Electron_PT[0] > 32 && abs(Electron_Eta[0]) < 2.5 && ScalarHT_HT[0]>2000.)
+           {
+               
+                   
+               
+               //cout<<"Muon PT: "<< Muon_PT[0] << endl;
+               Nevents_pass += 1;
+                   //weight += Event_Weight[0];
+                   
+                   weight += Event_Weight[0]*Sig_MG5/sum_weights;
+               
+           }
+          
+       }
+       
+       else{
+           
+           //cout<< "Too many electrons " << nmuonsvalue <<endl;
+       }
+       
+       
+       
+       
+       
+       
+       
+       // FatJet selection
+       if(FatJet_PT[0] > 200){
+           nfjets->Fill(nfj_value);
+       }
+       
+       else{
+           //cout<< " FJet_PT too low: " << FatJet_PT[0] << endl;
+       }
+       
+       
+       //HT->Fill (ScalarHT_HT[0], Event_Weight[0]);
+      
+       
+       
+       /*
        TLorentzVector *jets = new TLorentzVector[njetsvalue];
        
        //  std::vector<ROOT::Math::TLorentzVector<ROOT::Math::PxPyPzE4D<double>>> jets;
@@ -111,7 +204,7 @@ void MyDelphes::Loop(TString file_name)
            mH->Fill ((jets[0]+jets[1]+jets[2]+jets[3]+jets[4]+jets[5]).M() , Event_Weight[0]);
            mt4->Fill ((jets[0]+jets[1]+jets[2]+jets[3]+jets[4]+jets[5]+jets[6]+jets[7]+jets[8]).M() , Event_Weight[0]);
        }
-       
+       */
        
        
        
@@ -123,9 +216,9 @@ void MyDelphes::Loop(TString file_name)
    }
     
     
-    //   cout << "Integrate Weight is: " << weight << endl;
+       cout << "Integrate Weight is: " << weight << endl;
     
-    
+    cout <<"Number of single lepton events: " << Nevents_pass << endl;
     // write to the output file
     out.Write ();
 }
