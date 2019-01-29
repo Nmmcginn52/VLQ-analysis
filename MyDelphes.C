@@ -232,8 +232,10 @@ void MyDelphes::Loop(TString file_name)
     
    //output
     
+      //signal
        cout << "Integrate Weight is: " << weight << endl;
     
+   //total number of events
     cout <<"Number of single lepton events: " << Nevents_pass << endl;
     // write to the output file
     out.Write ();
