@@ -42,8 +42,10 @@ void MyDelphes::Loop(TString file_name)
     // nentries is the number of events
     
     float weight =0;
-    float sum_weights =  0.0605026;
-    float Sig_MG5 = 0.05148;
+   
+   //sum of weights and MG5 xsection for mt4 = 1.5 TeV and mH02 = 1 TeV
+    float sum_weights =  0.20622; // sum of weights from all events
+    float Sig_MG5 = 0.1756; // parton xsection from MG5 in pb
     
    Long64_t nentries = fChain->GetEntriesFast();
     
@@ -125,11 +127,17 @@ void MyDelphes::Loop(TString file_name)
            {
                
                //cout<<"Muon PT: "<< Muon_PT[0] << endl;
+              
+               //counting number of events that pass the cuts
                Nevents_pass += 1;
+              
+              
                muPT->Fill (Muon_PT[0], Event_Weight[0]);
-                   //weight += Event_Weight[0];
                    
-                   weight += Event_Weight[0]*Sig_MG5/sum_weights;
+              //summing weights of events that pass cuts
+              
+              //weight += Event_Weight[0];
+                weight += Event_Weight[0]*Sig_MG5/sum_weights;
                
                
            }    
@@ -152,10 +160,14 @@ void MyDelphes::Loop(TString file_name)
                    
                
                //cout<<"Muon PT: "<< Muon_PT[0] << endl;
+              
+              //counting number of events that pass the cuts
                Nevents_pass += 1;
-                   //weight += Event_Weight[0];
-                   
-                   weight += Event_Weight[0]*Sig_MG5/sum_weights;
+              
+              //summing weights of events that pass cuts
+         
+               //weight += Event_Weight[0];     
+                 weight += Event_Weight[0]*Sig_MG5/sum_weights;
                
            }
           
@@ -174,6 +186,7 @@ void MyDelphes::Loop(TString file_name)
        
        // FatJet selection
        if(FatJet_PT[0] > 200){
+          //counting number of fatjets
            nfjets->Fill(nfj_value);
        }
        
@@ -182,10 +195,12 @@ void MyDelphes::Loop(TString file_name)
        }
        
        
-       //HT->Fill (ScalarHT_HT[0], Event_Weight[0]);
       
-       
-       
+      
+      //Filling histograms after cuts
+      
+       //HT->Fill (ScalarHT_HT[0], Event_Weight[0]);
+
        /*
        TLorentzVector *jets = new TLorentzVector[njetsvalue];
        
@@ -215,6 +230,7 @@ void MyDelphes::Loop(TString file_name)
        
    }
     
+   //output
     
        cout << "Integrate Weight is: " << weight << endl;
     
