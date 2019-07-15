@@ -1,0 +1,59 @@
+Scenario 1 (lambdas = 0)
+
+
+./exotic-s1.py
+
+#Then, t1ewptallhelp-s8.dat is made.
+
+./exotichelp-s1.py
+
+#Read t1ewptallhelp-s8.dat -> t1ewptall-s8.dat is made.
+
+cp t1ewptall-s8.dat t1ewptall.dat
+
+./final.py
+
+#Read t1ewptall.dat -> t1ewptall-em.dat is made.
+
+#t1ewptall-em.dat is the final file. I usually rename it, e.g., cp t1ewptall-em.dat exotic-em-s1.dat
+
+
+Scenario 2 (kappas = 0)
+
+./exotic-s2.py
+
+#Then, t1ewptallhelp-s9.dat is made.
+ 
+./exotichelp-s2.py
+ 
+#Read t1ewptallhelp-s9.dat -> t1ewptall-s9.dat is made.
+ 
+cp t1ewptall-s9.dat t1ewptall.dat
+ 
+./final.py   
+ 
+#Read t1ewptall.dat -> t1ewptall-em.dat is made.
+ 
+#t1ewptall-em.dat is the final file. I usually rename it, e.g., cp t1ewptall-em.dat exotic-em-s2.dat
+ 
+
+
+Scenario 3 (both lambdas and kappas can be non-zero)
+
+./exotic-s3.py
+
+#Then, t1ewptallhelp-s6.dat is made.
+ 
+./exotichelp-s3.py
+ 
+#Read t1ewptallhelp-s6.dat -> t1ewptall-s6.dat is made.
+ 
+cp t1ewptall-s6.dat t1ewptall.dat
+ 
+./final.py   
+ 
+#Read t1ewptall.dat -> t1ewptall-em.dat is made.
+ 
+#t1ewptall-em.dat is the final file. I usually rename it, e.g., cp t1ewptall-em.dat exotic-em-s3.dat
+ 
+   
