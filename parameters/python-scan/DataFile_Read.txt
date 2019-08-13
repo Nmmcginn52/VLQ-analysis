@@ -1,0 +1,6 @@
+#Here are the parameters in t1ewptall-em.dat  file
+
+#The physical meanings are in ScanList.pdf
+
+mylist = [mt4,tan(beta),lamHt34,mHH,doubfr,singfr,delS,delT,delU,lamHrt34,lamHt44,lamHrt44,gLW44t,gLW43t,gLW45t,gLW33t,gLW34t,gLW35t,gLW55t,gLW53t,gLW54t,gRW44t,gRW43t,gRW45t,gRW33t,gRW34t,gRW35t,gRW55t,gRW54t,gRW53t,gLZ44t,gLZ43t,gLZ45t,gLZ33t,gLZ34t,gLZ35t,gLZ55t,gLZ53t,gLZ54t,gRZ44t,gRZ43t,gRZ45t,gRZ33t,gRZ34t,gRZ35t,gRZ55t,gRZ53t,gRZ54t,kaT,kaQ,ka,kab,mt5,MTT,MQQ,brHtobb,brHtohh,brHtot4,brHtogg,brHtocc,brHtodi,brHtott,gamHtot,gamHtotata,gamHtobb,gamHtot4,gamHtogg,gamHtohh,gamHtocc,gamHdiph,gamHtott,brt4w,brt4z,brt4h,brour,ggHratio,ggSMratio,lamHt55,lamHrt55,totalratio,brHtotata,brt4b4w,brt4b5w,brb4w,brb4z,brb4h,brb4t4w,brb4t5w,brHtot5,brHt4t4,brHt4t5,brHt5t5,brHtob4,brHtob5,brHb4b4,brHb4b5,brHb5b5,lamHt35,lamHrt35,lamHt45,lamHrt45,lamHb34,lamHrb34,lamHb35,lamHrb35,lamHb45,lamHrb45,lamHb44,lamHrb44,lamHb55,lamHrb55,gLZ33b,gLZ44b,gLZ55b,gLZ34b,gLZ43b,gLZ35b,gLZ53b,gLZ45b,gLZ54b,gRZ33b,gRZ44b,gRZ55b,gRZ34b,gRZ43b,gRZ35b,gRZ53b,gRZ45b,gRZ54b,gLW42t,gLW52t,gLW24b,gLW25b,gLW41t,gLW51t,gLW14b,gLW15b,mb4,mb5,doubt5fr,singt5fr,doubb4fr,singb4fr,doubb5fr,singb5fr,xst4bj,xst4tj,gammat4toh,gammat4tow,lamHtest,lamHtest1,lamHtest2,lamHtest3,lamHtest4,brt5z,brt5w,brt5h,"\n"]
+
